@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeakEasy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #input-area {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        #query-input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #query-button {
+            padding: 8px 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #result-streaming {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>SpeakEasy</h1>
+
+<div id="input-area">
+    <input type="text" id="query-input" placeholder="Ask a question...">
+    <button id="query-button">Send</button>
+</div>
+
+<div id="result-streaming"></div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
