@@ -8,31 +8,40 @@
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
+            width: 100vw;
         }
-        #input-area {
-            display: flex;
-            margin-bottom: 10px;
+
+        .prompt-input {
+            border: 0.1rem solid;
+            border-radius: 0.5rem;
+            width: 70%;
         }
-        #query-input {
-            flex-grow: 1;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        #query-button {
-            padding: 8px 16px;
-            background-color: #007BFF;
+
+        .prompt-button {
+            border-radius: 0.5rem;
+            background-color: black;
             color: white;
-            border: none;
-            border-radius: 4px;
+            width: 70%;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
             cursor: pointer;
         }
+        .goal-input {
+            border-color: green;
+        }
+        .return-format-input {
+            border-color: blue;
+        }
+        .warning-input {
+            border-color: red;
+        }
         #result-streaming {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            max-height: 200px;
+            border: 0.1rem solid grey;
+            border-radius: 0.5rem;
             overflow-y: auto;
+            width: 70%;
+            min-height: 16rem;
+            margin-top: 2rem;
         }
     </style>
 </head>
@@ -40,9 +49,44 @@
 
 <h1>SpeakEasy</h1>
 
-<div id="input-area">
-    <input type="text" id="query-input" placeholder="Ask a question...">
-    <button id="query-button">Send</button>
+<div>
+    <textarea 
+        id="goal-prompt" 
+        placeholder="Goal..." 
+        rows="3" 
+        class="prompt-input goal-input"
+    ></textarea>
+</div>
+
+<div class="mt-4">
+    <textarea 
+        id="return-format-prompt" 
+        placeholder="Return format..." 
+        rows="3" 
+        class="prompt-input return-format-input"
+    ></textarea>
+</div>
+
+<div class="mt-4">
+    <textarea 
+        id="warning-prompt" 
+        placeholder="Warning..." 
+        rows="3" 
+        class="prompt-input warning-input"
+    ></textarea>
+</div>
+
+<div class="mt-4">
+    <textarea 
+        id="context-prompt" 
+        placeholder="Context..." 
+        rows="3" 
+        class="prompt-input context-input"
+    ></textarea>
+</div>
+
+<div>
+    <button id="button-prompt" class="prompt-button">Prompt</button>  
 </div>
 
 <div id="result-streaming"></div>

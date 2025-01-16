@@ -1,6 +1,15 @@
 document.getElementById('query-button').addEventListener('click', () => {
-    const queryInput = document.getElementById('query-input');
-    const promptText = queryInput.value.trim();
+    const goalPrompt = document.getElementById('goal-prompt').value.trim();
+    const returnFormatPrompt = document.getElementById('return-format-prompt').value.trim();
+    const warningPrompt = document.getElementById('warning-prompt').value.trim();
+    const contextPrompt = document.getElementById('context-prompt').value.trim();
+
+    const promptText = [
+        goalPrompt && `Goal: ${goalPrompt}`,
+        returnFormatPrompt && `Return Format: ${returnFormatPrompt}`,
+        warningPrompt && `Warning: ${warningPrompt}`,
+        contextPrompt && `Context: ${contextPrompt}`
+    ].filter(Boolean).join('\n\n');
 
     if (!promptText) {
         alert("Please enter a question or statement.");

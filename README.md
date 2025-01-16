@@ -3,4 +3,8 @@ SpeakEasy is an intuitive chat interface for LLMs. Built with JavaScript and pow
 
 ## Usage
 
-`python -m http.server 8000`
+start backend `ollama serve`
+
+start frontend `python -m http.server 8000`
+
+go to `http://127.0.0.1:8000/`
