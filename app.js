@@ -1,4 +1,4 @@
-document.getElementById('query-button').addEventListener('click', () => {
+document.getElementById('button-prompt').addEventListener('click', () => {
     const goalPrompt = document.getElementById('goal-prompt').value.trim();
     const returnFormatPrompt = document.getElementById('return-format-prompt').value.trim();
     const warningPrompt = document.getElementById('warning-prompt').value.trim();
@@ -23,17 +23,16 @@ async function fetchStreamResponse(prompt) {
     try {
         const url = 'http://127.0.0.1:11434/api/generate';
         const data = {
-            model: "phi4:14b-q4_K_M",
+            model: "llama3.2:3b-instruct-q8_0",
             prompt: prompt
         };
 
-        // Use fetch to make a POST request
         fetch(url, {
-        method: 'POST', // Specify the HTTP method
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json' // Set header for JSON content
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data) // Convert JavaScript object to JSON string
+        body: JSON.stringify(data)
         })
         .then(response => {
             const reader = response.body.getReader();
@@ -52,9 +51,9 @@ async function fetchStreamResponse(prompt) {
 
             readStream().catch(error => console.error('Error reading response:', error));
 
-        }) // Parse JSON response if needed
-        .then(data => console.log('Success:', data)) // Handle success
-        .catch((error) => console.error('Error:', error)); // Handle errors
+        })
+        .then(data => console.log('Success:', data))
+        .catch((error) => console.error('Error:', error));
 
     } catch (error) {
         console.error('Fetch error:', error);
@@ -76,10 +75,6 @@ function processResponse(text) {
 function updateResult(responseText) {
     const resultArea = document.getElementById('result-streaming');
     const currentText = resultArea.innerText;
-
-    // Append the new part of the response text
     resultArea.innerText = currentText + (currentText ? ' ' : '') + responseText;
-
-    // Scroll to the bottom if not already visible
     resultArea.scrollTop = resultArea.scrollHeight;
 }
