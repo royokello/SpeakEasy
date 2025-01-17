@@ -1,29 +1,77 @@
-document.getElementById('button-prompt').addEventListener('click', () => {
-    const goalPrompt = document.getElementById('goal-prompt').value.trim();
-    const returnFormatPrompt = document.getElementById('return-format-prompt').value.trim();
-    const warningPrompt = document.getElementById('warning-prompt').value.trim();
-    const contextPrompt = document.getElementById('context-prompt').value.trim();
+// // Function to load models and create radio buttons
+async function loadModels() {
+    try {
+        const response = await fetch('http://localhost:11434/api/tags');
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        
+        const data = await response.json();
 
-    const promptText = [
-        goalPrompt && `Goal: ${goalPrompt}`,
-        returnFormatPrompt && `Return Format: ${returnFormatPrompt}`,
-        warningPrompt && `Warning: ${warningPrompt}`,
-        contextPrompt && `Context: ${contextPrompt}`
-    ].filter(Boolean).join('\n\n');
+        const models = data.models;
 
-    if (!promptText) {
-        alert("Please enter a question or statement.");
-        return;
+        const radioContainer = document.getElementById('radio-container');
+        radioContainer.innerHTML = '';
+
+        models.forEach(model => {
+            const label = document.createElement('label');
+            const radioButton = document.createElement('input');
+
+            radioButton.type = 'radio';
+            radioButton.name = 'model-selection';
+            radioButton.value = model.name;
+
+            label.appendChild(radioButton);
+            label.appendChild(document.createTextNode(`${model.name}`));
+
+            radioContainer.appendChild(label);
+            radioContainer.appendChild(document.createElement('br'));
+        });
+        
+    } catch (error) {
+        console.error('Error loading models:', error);
     }
+}
 
-    fetchStreamResponse(promptText);
+document.addEventListener('DOMContentLoaded', loadModels);
+
+document.getElementById('button-prompt').addEventListener('click', () => {
+    console.log("button clicked...")
+    const selectedModel = document.querySelector('input[name="model-selection"]:checked');
+    console.log(selectedModel)
+    if (selectedModel) {
+
+        const goalPrompt = document.getElementById('goal-prompt').value.trim();
+        const returnFormatPrompt = document.getElementById('return-format-prompt').value.trim();
+        const warningPrompt = document.getElementById('warning-prompt').value.trim();
+        const contextPrompt = document.getElementById('context-prompt').value.trim();
+
+        const promptText = [
+            goalPrompt && `Goal: ${goalPrompt}`,
+            returnFormatPrompt && `Return Format: ${returnFormatPrompt}`,
+            warningPrompt && `Warning: ${warningPrompt}`,
+            contextPrompt && `Context: ${contextPrompt}`
+        ].filter(Boolean).join('\n\n');
+
+        if (!promptText) {
+            alert("Please enter a question or statement.");
+            return;
+        }
+
+        const resultArea = document.getElementById('result-streaming');
+        resultArea.innerText = "";
+
+        fetchStreamResponse(promptText, selectedModel.value);
+
+    } else {
+        alert('Please select a model first.');
+    }
 });
 
-async function fetchStreamResponse(prompt) {
+async function fetchStreamResponse(prompt, model) {
     try {
         const url = 'http://127.0.0.1:11434/api/generate';
         const data = {
-            model: "llama3.2:3b-instruct-q8_0",
+            // model: "phi4:/14b-q4_K_M",
+            model: model,
             prompt: prompt
         };
 
@@ -75,6 +123,6 @@ function processResponse(text) {
 function updateResult(responseText) {
     const resultArea = document.getElementById('result-streaming');
     const currentText = resultArea.innerText;
-    resultArea.innerText = currentText + (currentText ? ' ' : '') + responseText;
+    resultArea.innerText = currentText + responseText;
     resultArea.scrollTop = resultArea.scrollHeight;
 }
