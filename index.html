@@ -1,104 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpeakEasy</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            width: 100vw;
-        }
-
-        .prompt-input {
-            border: 0.1rem solid;
-            border-radius: 0.5rem;
-            width: 70%;
-        }
-
-        .prompt-button {
-            border-radius: 0.5rem;
-            background-color: black;
-            color: white;
-            width: 70%;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            cursor: pointer;
-        }
-        .goal-input {
-            border-color: green;
-        }
-        .return-format-input {
-            border-color: blue;
-        }
-        .warning-input {
-            border-color: red;
-        }
-        #result-streaming {
-            border: 0.1rem solid grey;
-            border-radius: 0.5rem;
-            overflow-y: auto;
-            width: 70%;
-            min-height: 16rem;
-            margin-top: 2rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpeakEasy</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <h1 class="title">SpeakEasy</h1>
 
-<h1>SpeakEasy</h1>
+  <!-- Inline page selection buttons -->
+  <div id="page-selector">
+    <button class="page-button active" data-page="chat">Chat</button>
+    <button class="page-button" data-page="control">Control</button>
+    <button class="page-button" data-page="collect">Collect</button>
+  </div>
 
-<div >
-    <label for="model-selection">Select ollama model :</label >
-    <div id="radio-container">
-    <!-- Radio buttons will be inserted here dynamically -->
-    </div>
-</div>
+  <!-- Content container: page templates will be loaded here -->
+  <div id="content"></div>
 
-<div>
-    <textarea 
-        id="goal-prompt" 
-        placeholder="Goal..." 
-        rows="3" 
-        class="prompt-input goal-input"
-    ></textarea>
-</div>
-
-<div class="mt-4">
-    <textarea 
-        id="return-format-prompt" 
-        placeholder="Return format..." 
-        rows="3" 
-        class="prompt-input return-format-input"
-    ></textarea>
-</div>
-
-<div class="mt-4">
-    <textarea 
-        id="warning-prompt" 
-        placeholder="Warning..." 
-        rows="3" 
-        class="prompt-input warning-input"
-    ></textarea>
-</div>
-
-<div class="mt-4">
-    <textarea 
-        id="context-prompt" 
-        placeholder="Context..." 
-        rows="3" 
-        class="prompt-input context-input"
-    ></textarea>
-</div>
-
-<div>
-    <button id="button-prompt" class="prompt-button">Prompt</button>  
-</div>
-
-<div id="result-streaming"></div>
-
-<script src="app.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
