@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFFFE0; /* Light yellow */
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    display: flex;
+    height: 100vh;
+}
+
+#sidebar {
+    width: 25%;
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+}
+
+#sidebar h2 {
+    color: orange;
+}
+
+#chat-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#chat-list li {
+    margin-bottom: 10px;
+}
+
+#chat-list li.active a {
+    font-weight: bold;
+    color: orange;
+}
+
+#chat-list a {
+    text-decoration: none;
+    color: black;
+}
+
+#chat-area {
+    width: 75%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+#model-selection {
+    margin-bottom: 10px;
+}
+
+#chat-history {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: white;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.flash-messages {
+    color: red;
+    list-style-type: none;
+    padding: 10px;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SpeakEasy</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div id="container">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <h2>SpeakEasy</h2>
+            {% if not folder_set %}
+                <p>No folder provided. Please enter a root folder path.</p>
+                <form action="{{ url_for('set_folder') }}" method="post">
+                    <input type="text" id="root_folder" name="root_folder" placeholder="Enter full folder path" required>
+                    <button type="submit">Set Folder</button>
+                </form>
+            {% else %}
+                <p>Root Folder: {{ root_folder }}</p>
+                <ul id="chat-list">
+                    {% for chat in chats %}
+                        <li {% if chat.name == selected_chat %}class="active"{% endif %}>
+                            <a href="{{ url_for('index', chat=chat.name) }}">{{ chat.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <form action="{{ url_for('new_chat') }}" method="post">
+                    <button type="submit">New Chat</button>
+                </form>
+            {% endif %}
+        </div>
+
+        <!-- Main chat area -->
+        <div id="chat-area">
+            {% if folder_set and selected_chat %}
+                <!-- Model selection dropdown -->
+                <div id="model-selection">
+                    <label for="model_select">Select Model:</label>
+                    <select name="model" id="model_select" form="messageForm">
+                        {% for model in models %}
+                            <option value="{{ model }}">{{ model }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div id="chat-history">
+                    <pre>{{ history }}</pre>
+                </div>
+                <form id="messageForm" action="{{ url_for('send_message') }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="chat" value="{{ selected_chat }}">
+                    <textarea name="message" rows="4" cols="50" placeholder="Enter your message" required></textarea>
+                    <br>
+                    <label for="attached_file">Attach file (optional): </label>
+                    <input type="file" name="attached_file" id="attached_file">
+                    <br>
+                    <button type="submit">Send</button>
+                </form>
+            {% else %}
+                <p>Please set a root folder to begin chatting.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash-messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>

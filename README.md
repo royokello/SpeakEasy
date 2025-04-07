@@ -26,19 +26,11 @@ pip install -r requirements.txt
 
 ## Usage
 
-Start the backend:
-
 ```bash
 ollama serve
+
+python app.py
 ```
-
-Start the frontend:
-
-```bash
-python -m http.server 8000
-```
-
-Access the application via your browser at `http://127.0.0.1:8000`.
 
 ## Contributing
 
